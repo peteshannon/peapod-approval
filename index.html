@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeaPod Script Approval - Baringa Partners</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f1419;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeIn 0.6s ease-in;
+    }
+    
+    .header h1 {
+      color: #00d4ff;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 15px 0;
+      letter-spacing: -0.5px;
+    }
+    
+    .header p {
+      color: #00d4ff;
+      font-size: 18px;
+      margin: 0;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+    
+    /* Info Cards */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+      animation: slideUp 0.8s ease-out;
+    }
+    
+    .info-card {
+      background: linear-gradient(135deg, #243447 0%, #1e2d3d 100%);
+      border: 1px solid #2a3f54;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+    }
+    
+    .info-card .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .info-card h3 {
+      color: #00d4ff;
+      font-size: 16px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .info-card p {
+      color: #8ba3b8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    /* Form Wrapper */
+    .form-wrapper {
+      background: linear-gradient(135deg, #1e2d3d 0%, #243447 100%);
+      border: 2px solid #2a3f54;
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+    
+    .form-header {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      padding: 25px 30px;
+      border-bottom: 3px solid #ff0090;
+    }
+    
+    .form-header h2 {
+      color: #0f1419;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    .form-content {
+      padding: 30px;
+      background: #1a2332;
+    }
+    
+    /* Google Form iframe styling */
+    iframe {
+      width: 100%;
+      border: none;
+      min-height: 1000px;
+      background: transparent;
+    }
+    
+    /* Instructions */
+    .instructions {
+      background: linear-gradient(135deg, #3d2a1e 0%, #2a1e1e 100%);
+      border: 2px solid #ff6b35;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      animation: slideUp 1s ease-out;
+    }
+    
+    .instructions h3 {
+      color: #ff6b35;
+      font-size: 20px;
+      margin: 0 0 15px 0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .instructions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .instructions li {
+      color: #e0d0c0;
+      padding: 10px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+    }
+    
+    .instructions li:last-child {
+      border-bottom: none;
+    }
+    
+    .instructions li::before {
+      content: "✓";
+      color: #00d4ff;
+      font-size: 20px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid #2a3f54;
+      animation: fadeIn 1.2s ease-in;
+    }
+    
+    .footer p {
+      font-size: 13px;
+      color: #8ba3b8;
+      margin: 5px 0;
+    }
+    
+    .footer .brand {
+      color: #00d4ff;
+      font-weight: 600;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+      
+      .header p {
+        font-size: 16px;
+      }
+      
+      .info-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .form-content {
+        padding: 20px;
+      }
+      
+      iframe {
+        min-height: 800px;
+      }
+    }
+  </style>
+  
+  <script>
+    // Capture URL parameters and pass them to the Google Form iframe
+    window.addEventListener('DOMContentLoaded', function() {
+      const iframe = document.querySelector('iframe');
+      const currentUrl = window.location.href;
+      const urlParams = window.location.search;
+      
+      // If there are URL parameters, append them to the iframe src
+      if (urlParams) {
+        const iframeSrc = iframe.getAttribute('src');
+        // Remove ?embedded=true temporarily
+        const baseIframeSrc = iframeSrc.replace('?embedded=true', '');
+        // Add all URL parameters, then add embedded=true at the end
+        iframe.setAttribute('src', baseIframeSrc + urlParams + '&embedded=true');
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header">
+      <h1>🎙️ PeaPod Script Approval</h1>
+      <p>Review, edit, and approve your podcast script</p>
+    </div>
+    
+    <!-- Quick Info Cards -->
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="icon">📝</div>
+        <h3>Edit Freely</h3>
+        <p>Make any changes directly in the script field below</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">⚡</div>
+        <h3>Fast Processing</h3>
+        <p>Audio generation begins immediately after approval</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">✅</div>
+        <h3>Simple Decision</h3>
+        <p>Just select Approve or Reject and submit</p>
+      </div>
+    </div>
+    
+    <!-- Instructions -->
+    <div class="instructions">
+      <h3>⚠️ How to Review & Approve</h3>
+      <ul>
+        <li>Read through the complete podcast script below</li>
+        <li>Edit the script directly if you need to make changes</li>
+        <li>Select "Approve" to proceed with audio generation</li>
+        <li>Select "Reject" to stop the process</li>
+        <li>Add comments if you have specific feedback for the team</li>
+        <li><strong>Important:</strong> Once approved, the script will be converted to audio automatically</li>
+      </ul>
+    </div>
+    
+    <!-- Form Wrapper -->
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>Approval Form</h2>
+      </div>
+      <div class="form-content">
+        
+        <!-- Google Form Embed -->
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSchCFbSlZcqXG4W4QOAf8Xuc96PIpua3A1Vjb1HaCVNs6BwIA/viewform?embedded=true" 
+          width="100%" 
+          height="1200" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0"
+          loading="lazy">
+          Loading…
+        </iframe>
+        <!-- End Google Form Embed -->
+        
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p>This is an automated approval system from <span class="brand">PeaPod</span></p>
+      <p style="font-size: 12px; color: #6a7d8f; margin-top: 10px;">
+        Powered by Baringa Partners | Products & Services AI Team
+      </p>
+    </div>
+    
+  </div>
+</body>
+</html>
