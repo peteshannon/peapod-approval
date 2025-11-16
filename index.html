@@ -718,12 +718,15 @@
         document.getElementById('approveBtn').disabled = true;
         document.getElementById('rejectBtn').disabled = true;
         
+        // Use URLSearchParams to avoid CORS issues
+        const formData = new URLSearchParams();
+        for (const [key, value] of Object.entries(payload)) {
+          formData.append(key, value);
+        }
+        
         const response = await fetch(WEBHOOK_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
+          body: formData
         });
         
         if (!response.ok) {
