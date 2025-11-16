@@ -60,6 +60,45 @@
       opacity: 0.9;
     }
     
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #00d4ff;
+      font-size: 18px;
+    }
+    
+    .loading::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+    
+    /* Error State */
+    .error {
+      background: linear-gradient(135deg, #3d1e1e 0%, #2a1e1e 100%);
+      border: 2px solid #ff4444;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    
+    .error h2 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    
+    .error p {
+      color: #e0d0c0;
+      line-height: 1.6;
+    }
+    
     /* Info Cards */
     .info-cards {
       display: grid;
@@ -101,41 +140,38 @@
       line-height: 1.5;
     }
     
-    /* Form Wrapper */
-    .form-wrapper {
-      background: linear-gradient(135deg, #1e2d3d 0%, #243447 100%);
-      border: 2px solid #2a3f54;
-      border-radius: 16px;
-      padding: 0;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      animation: fadeIn 1s ease-in;
+    /* Episode Details Card */
+    .episode-details {
+      background: linear-gradient(135deg, #243447 0%, #1e2d3d 100%);
+      border: 1px solid #2a3f54;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 30px 0;
     }
     
-    .form-header {
-      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-      padding: 25px 30px;
-      border-bottom: 3px solid #ff0090;
+    .episode-details h2 {
+      color: #00d4ff;
+      font-size: 20px;
+      margin: 0 0 20px 0;
+      font-weight: 600;
     }
     
-    .form-header h2 {
-      color: #0f1419;
-      font-size: 24px;
-      font-weight: 700;
-      margin: 0;
+    .detail-row {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 12px;
     }
     
-    .form-content {
-      padding: 30px;
-      background: #1a2332;
+    .detail-label {
+      color: #8ba3b8;
+      min-width: 120px;
+      font-size: 14px;
     }
     
-    /* Google Form iframe styling */
-    iframe {
-      width: 100%;
-      border: none;
-      min-height: 1000px;
-      background: transparent;
+    .detail-value {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 15px;
     }
     
     /* Instructions */
@@ -185,6 +221,166 @@
       flex-shrink: 0;
     }
     
+    /* Form Wrapper */
+    .form-wrapper {
+      background: linear-gradient(135deg, #1e2d3d 0%, #243447 100%);
+      border: 2px solid #2a3f54;
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+    
+    .form-header {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      padding: 25px 30px;
+      border-bottom: 3px solid #ff0090;
+    }
+    
+    .form-header h2 {
+      color: #0f1419;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    .form-content {
+      padding: 30px;
+      background: #1a2332;
+    }
+    
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-label {
+      display: block;
+      color: #00d4ff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      background: #0f1419;
+      border: 2px solid #2a3f54;
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: #ffffff;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: #00d4ff;
+    }
+    
+    .form-textarea {
+      min-height: 400px;
+      resize: vertical;
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+    }
+    
+    .form-select {
+      cursor: pointer;
+    }
+    
+    .char-count {
+      text-align: right;
+      color: #8ba3b8;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+    
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 18px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .btn-approve {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #0f1419;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    }
+    
+    .btn-approve:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+    }
+    
+    .btn-reject {
+      background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
+    }
+    
+    .btn-reject:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 68, 68, 0.6);
+    }
+    
+    /* Success Message */
+    .success {
+      background: linear-gradient(135deg, #1e3d2a 0%, #1e2a1e 100%);
+      border: 2px solid #44ff44;
+      border-radius: 12px;
+      padding: 40px;
+      margin: 30px 0;
+      text-align: center;
+      animation: slideUp 0.5s ease-out;
+    }
+    
+    .success h2 {
+      color: #44ff44;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    
+    .success p {
+      color: #d0e0d0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .success .checkmark {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
     /* Footer */
     .footer {
       text-align: center;
@@ -207,12 +403,8 @@
     
     /* Animations */
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     
     @keyframes slideUp {
@@ -249,29 +441,20 @@
         padding: 20px;
       }
       
-      iframe {
-        min-height: 800px;
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .btn {
+        min-width: 100%;
+      }
+      
+      .form-textarea {
+        min-height: 300px;
+        font-size: 14px;
       }
     }
   </style>
-  
-  <script>
-    // Capture URL parameters and pass them to the Google Form iframe
-    window.addEventListener('DOMContentLoaded', function() {
-      const iframe = document.querySelector('iframe');
-      const currentUrl = window.location.href;
-      const urlParams = window.location.search;
-      
-      // If there are URL parameters, append them to the iframe src
-      if (urlParams) {
-        const iframeSrc = iframe.getAttribute('src');
-        // Remove ?embedded=true temporarily
-        const baseIframeSrc = iframeSrc.replace('?embedded=true', '');
-        // Add all URL parameters, then add embedded=true at the end
-        iframe.setAttribute('src', baseIframeSrc + urlParams + '&embedded=true');
-      }
-    });
-  </script>
 </head>
 <body>
   <div class="container">
@@ -285,59 +468,113 @@
       <p>Podcast Script Approval System</p>
     </div>
     
-    <!-- Quick Info Cards -->
-    <div class="info-cards">
-      <div class="info-card">
-        <div class="icon">📝</div>
-        <h3>Edit Freely</h3>
-        <p>Make any changes directly in the script field below</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">⚡</div>
-        <h3>Fast Processing</h3>
-        <p>Audio generation begins immediately after approval</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">✅</div>
-        <h3>Simple Decision</h3>
-        <p>Just select Approve or Reject and submit</p>
-      </div>
+    <!-- Loading State -->
+    <div id="loadingState" class="loading">
+      Loading your approval request
     </div>
     
-    <!-- Instructions -->
-    <div class="instructions">
-      <h3>⚠️ How to Review & Approve</h3>
-      <ul>
-        <li>Read through the complete podcast script below</li>
-        <li>Edit the script directly if you need to make changes</li>
-        <li>Select "Approve" to proceed with audio generation</li>
-        <li>Select "Reject" to stop the process</li>
-        <li>Add comments if you have specific feedback for the team</li>
-        <li><strong>Important:</strong> Once approved, the script will be converted to audio automatically</li>
-      </ul>
+    <!-- Error State -->
+    <div id="errorState" class="error" style="display: none;">
+      <h2>⚠️ Unable to Load Script</h2>
+      <p id="errorMessage"></p>
     </div>
     
-    <!-- Form Wrapper -->
-    <div class="form-wrapper">
-      <div class="form-header">
-        <h2>Approval Form</h2>
+    <!-- Success State -->
+    <div id="successState" class="success" style="display: none;">
+      <span class="checkmark">✅</span>
+      <h2 id="successTitle">Submission Successful!</h2>
+      <p id="successMessage"></p>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
+      
+      <!-- Episode Details -->
+      <div class="episode-details">
+        <h2>📊 Episode Details</h2>
+        <div class="detail-row">
+          <span class="detail-label">Team:</span>
+          <span class="detail-value" id="teamName">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Episode:</span>
+          <span class="detail-value" id="episodeTitle">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Date:</span>
+          <span class="detail-value" id="episodeDate">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Word Count:</span>
+          <span class="detail-value" id="wordCount">-</span>
+        </div>
       </div>
-      <div class="form-content">
-        
-        <!-- Google Form Embed -->
-        <iframe 
-          src="https://docs.google.com/forms/d/e/1FAIpQLSchCFbSlZcqXG4W4QOAf8Xuc96PIpua3A1Vjb1HaCVNs6BwIA/viewform?embedded=true" 
-          width="100%" 
-          height="1200" 
-          frameborder="0" 
-          marginheight="0" 
-          marginwidth="0"
-          loading="lazy">
-          Loading…
-        </iframe>
-        <!-- End Google Form Embed -->
-        
+      
+      <!-- Instructions -->
+      <div class="instructions">
+        <h3>⚠️ How to Review & Approve</h3>
+        <ul>
+          <li>Read through the complete podcast script below</li>
+          <li>Edit the script directly in the text area if needed</li>
+          <li>Add any comments for the team (optional)</li>
+          <li>Click "Approve" to proceed with audio generation</li>
+          <li>Click "Reject" to stop the process</li>
+          <li><strong>Important:</strong> Once approved, the script will be converted to audio automatically</li>
+        </ul>
       </div>
+      
+      <!-- Approval Form -->
+      <div class="form-wrapper">
+        <div class="form-header">
+          <h2>Approval Form</h2>
+        </div>
+        <div class="form-content">
+          <form id="approvalForm">
+            
+            <!-- Script Field -->
+            <div class="form-group">
+              <label class="form-label" for="scriptField">Podcast Script</label>
+              <textarea 
+                id="scriptField" 
+                class="form-textarea" 
+                placeholder="Loading script..."
+                required
+              ></textarea>
+              <div class="char-count">
+                <span id="charCount">0</span> characters | <span id="wordCountScript">0</span> words
+              </div>
+            </div>
+            
+            <!-- Comments Field -->
+            <div class="form-group">
+              <label class="form-label" for="commentsField">Comments (Optional)</label>
+              <textarea 
+                id="commentsField" 
+                class="form-textarea" 
+                style="min-height: 120px;"
+                placeholder="Add any comments or feedback here..."
+              ></textarea>
+            </div>
+            
+            <!-- Hidden Fields -->
+            <input type="hidden" id="teamNameField" name="team_name">
+            <input type="hidden" id="episodeDateField" name="episode_date">
+            <input type="hidden" id="episodeTitleField" name="episode_title">
+            
+            <!-- Buttons -->
+            <div class="button-group">
+              <button type="button" class="btn btn-approve" id="approveBtn">
+                ✅ APPROVE SCRIPT
+              </button>
+              <button type="button" class="btn btn-reject" id="rejectBtn">
+                ❌ REJECT SCRIPT
+              </button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+      
     </div>
     
     <!-- Footer -->
@@ -349,5 +586,206 @@
     </div>
     
   </div>
+
+  <script>
+    // Configuration
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxDtqCY23NqTBKAxZId-zZmX5DTMTSblCr_EBllZEv6_13Q-E3A4SsF9PJoyuTOMOl83WrGJbf4y1Y/pub?gid=1176891770&single=true&output=csv';
+    const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/24513013/u8dff6h/';
+    
+    // Parse URL parameters
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        episodeDate: params.get('episode_date') || params.get('entry.95739314'),
+        teamName: params.get('team_name') || params.get('entry.624057651'),
+        episodeTitle: params.get('episode_title') || params.get('entry.1842208202')
+      };
+    }
+    
+    // Parse CSV
+    function parseCSV(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      const data = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let char of lines[i]) {
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current.trim());
+        
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index] || '';
+        });
+        data.push(row);
+      }
+      
+      return data;
+    }
+    
+    // Fetch script from CSV
+    async function fetchScript(episodeDate) {
+      try {
+        const response = await fetch(CSV_URL);
+        const csvText = await response.text();
+        const data = parseCSV(csvText);
+        
+        // Find matching row
+        const row = data.find(r => r.Episode_Date === episodeDate);
+        
+        if (!row) {
+          throw new Error(`No script found for episode date: ${episodeDate}`);
+        }
+        
+        return {
+          teamName: row.Team_Name || '',
+          episodeTitle: row.Episode_Title || '',
+          script: row.Full_Script || '',
+          episodeDate: row.Episode_Date || ''
+        };
+      } catch (error) {
+        console.error('Error fetching script:', error);
+        throw error;
+      }
+    }
+    
+    // Update character and word count
+    function updateCounts() {
+      const script = document.getElementById('scriptField').value;
+      const charCount = script.length;
+      const wordCount = script.trim() ? script.trim().split(/\s+/).length : 0;
+      
+      document.getElementById('charCount').textContent = charCount.toLocaleString();
+      document.getElementById('wordCountScript').textContent = wordCount.toLocaleString();
+    }
+    
+    // Submit approval
+    async function submitApproval(decision) {
+      const script = document.getElementById('scriptField').value;
+      const comments = document.getElementById('commentsField').value;
+      const teamName = document.getElementById('teamNameField').value;
+      const episodeDate = document.getElementById('episodeDateField').value;
+      const episodeTitle = document.getElementById('episodeTitleField').value;
+      
+      const payload = {
+        team_name: teamName,
+        episode_date: episodeDate,
+        episode_title: episodeTitle,
+        script: script,
+        decision: decision,
+        comments: comments,
+        timestamp: new Date().toISOString()
+      };
+      
+      try {
+        // Disable buttons
+        document.getElementById('approveBtn').disabled = true;
+        document.getElementById('rejectBtn').disabled = true;
+        
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+          throw new Error('Submission failed');
+        }
+        
+        // Show success message
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+        
+        if (decision === 'Approve') {
+          document.getElementById('successTitle').textContent = '✅ Script Approved!';
+          document.getElementById('successMessage').textContent = 'Your approval has been recorded. Audio generation will begin shortly. You will receive an email when the podcast is ready.';
+        } else {
+          document.getElementById('successTitle').textContent = '❌ Script Rejected';
+          document.getElementById('successMessage').textContent = 'Your rejection has been recorded. The team will be notified and no further action will be taken on this script.';
+        }
+        
+      } catch (error) {
+        console.error('Error submitting:', error);
+        alert('There was an error submitting your response. Please try again or contact support.');
+        
+        // Re-enable buttons
+        document.getElementById('approveBtn').disabled = false;
+        document.getElementById('rejectBtn').disabled = false;
+      }
+    }
+    
+    // Initialize
+    async function init() {
+      try {
+        const params = getUrlParams();
+        
+        if (!params.episodeDate) {
+          throw new Error('Missing episode_date parameter in URL');
+        }
+        
+        // Fetch script data
+        const data = await fetchScript(params.episodeDate);
+        
+        // Populate form
+        document.getElementById('teamName').textContent = data.teamName;
+        document.getElementById('episodeTitle').textContent = data.episodeTitle;
+        document.getElementById('episodeDate').textContent = data.episodeDate;
+        document.getElementById('scriptField').value = data.script;
+        
+        // Set hidden fields
+        document.getElementById('teamNameField').value = data.teamName;
+        document.getElementById('episodeDateField').value = data.episodeDate;
+        document.getElementById('episodeTitleField').value = data.episodeTitle;
+        
+        // Update counts
+        updateCounts();
+        document.getElementById('wordCount').textContent = document.getElementById('wordCountScript').textContent + ' words';
+        
+        // Show main content
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        
+        // Add event listeners
+        document.getElementById('scriptField').addEventListener('input', updateCounts);
+        
+        document.getElementById('approveBtn').addEventListener('click', () => {
+          if (confirm('Are you sure you want to APPROVE this script? Audio generation will begin immediately.')) {
+            submitApproval('Approve');
+          }
+        });
+        
+        document.getElementById('rejectBtn').addEventListener('click', () => {
+          if (confirm('Are you sure you want to REJECT this script? This will stop all processing.')) {
+            submitApproval('Reject');
+          }
+        });
+        
+      } catch (error) {
+        console.error('Initialization error:', error);
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+        document.getElementById('errorMessage').textContent = error.message;
+      }
+    }
+    
+    // Run on page load
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
