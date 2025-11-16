@@ -609,8 +609,12 @@
         // Use Google Sheets JSON API (public access)
         const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
         
+        console.log('Fetching from URL:', url);
+        
         const response = await fetch(url);
         const text = await response.text();
+        
+        console.log('Response received, length:', text.length);
         
         // Remove the Google Sheets wrapper to get pure JSON
         const jsonText = text.substring(47).slice(0, -2);
@@ -622,15 +626,27 @@
         const rows = data.table.rows;
         console.log('Total rows:', rows.length);
         
+        // Log ALL dates in the sheet
+        console.log('All dates in sheet:');
+        rows.forEach((row, index) => {
+          const dateValue = row.c[0]?.v || '';
+          const dateFormatted = row.c[0]?.f || '';
+          console.log(`Row ${index}: v="${dateValue}", f="${dateFormatted}"`);
+        });
+        
+        console.log('Looking for episode_date:', episodeDate);
+        
         // Find matching row by Episode_Date (column 0)
         const matchingRow = rows.find(row => {
           const dateValue = row.c[0]?.v || '';
-          console.log('Checking row with date:', dateValue, 'against', episodeDate);
-          return dateValue === episodeDate;
+          const dateFormatted = row.c[0]?.f || '';
+          console.log('Checking row with date v:', dateValue, 'f:', dateFormatted, 'against', episodeDate);
+          // Try matching both the value and formatted version
+          return dateValue === episodeDate || dateFormatted === episodeDate;
         });
         
         if (!matchingRow) {
-          throw new Error(`No script found for episode date: ${episodeDate}`);
+          throw new Error(`No script found for episode date: ${episodeDate}. Check console for available dates.`);
         }
         
         console.log('Matching row:', matchingRow);
