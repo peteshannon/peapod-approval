@@ -589,7 +589,8 @@
 
   <script>
     // Configuration
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxDtqCY23NqTBKAxZId-zZmX5DTMTSblCr_EBllZEv6_13Q-E3A4SsF9PJoyuTOMOl83WrGJbf4y1Y/pub?gid=1176891770&single=true&output=csv';
+    const SPREADSHEET_ID = '1wKThYAdRTzoPfb5rMih8vMlU1LW6EfS_l7l0uR9TcoY';
+    const SHEET_NAME = 'Pending_Scripts';
     const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/24513013/u80josc/';
     
     // Parse URL parameters
@@ -602,60 +603,41 @@
       };
     }
     
-    // Parse CSV
-    function parseCSV(csv) {
-      const lines = csv.split('\n');
-      const headers = lines[0].split(',').map(h => h.trim());
-      const data = [];
-      
-      for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        
-        const values = [];
-        let current = '';
-        let inQuotes = false;
-        
-        for (let char of lines[i]) {
-          if (char === '"') {
-            inQuotes = !inQuotes;
-          } else if (char === ',' && !inQuotes) {
-            values.push(current.trim());
-            current = '';
-          } else {
-            current += char;
-          }
-        }
-        values.push(current.trim());
-        
-        const row = {};
-        headers.forEach((header, index) => {
-          row[header] = values[index] || '';
-        });
-        data.push(row);
-      }
-      
-      return data;
-    }
-    
-    // Fetch script from CSV
+    // Fetch script from Google Sheets
     async function fetchScript(episodeDate) {
       try {
-        const response = await fetch(CSV_URL);
-        const csvText = await response.text();
-        const data = parseCSV(csvText);
+        // Use Google Sheets JSON API (public access)
+        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
         
-        // Find matching row
-        const row = data.find(r => r.Episode_Date === episodeDate);
+        const response = await fetch(url);
+        const text = await response.text();
         
-        if (!row) {
+        // Remove the Google Sheets wrapper to get pure JSON
+        const jsonText = text.substring(47).slice(0, -2);
+        const data = JSON.parse(jsonText);
+        
+        // Extract rows
+        const rows = data.table.rows;
+        
+        // Find matching row by Episode_Date (column 0)
+        const matchingRow = rows.find(row => {
+          const dateValue = row.c[0]?.v || '';
+          return dateValue === episodeDate;
+        });
+        
+        if (!matchingRow) {
           throw new Error(`No script found for episode date: ${episodeDate}`);
         }
         
+        // Extract values from the matching row
+        // Column order: Episode_Date, Team_Name, Episode_Title, Full_Script, Created_Timestamp, Status
         return {
-          teamName: row.Team_Name || '',
-          episodeTitle: row.Episode_Title || '',
-          script: row.Full_Script || '',
-          episodeDate: row.Episode_Date || ''
+          episodeDate: matchingRow.c[0]?.v || '',
+          teamName: matchingRow.c[1]?.v || '',
+          episodeTitle: matchingRow.c[2]?.v || '',
+          script: matchingRow.c[3]?.v || '',
+          createdTimestamp: matchingRow.c[4]?.v || '',
+          status: matchingRow.c[5]?.v || ''
         };
       } catch (error) {
         console.error('Error fetching script:', error);
