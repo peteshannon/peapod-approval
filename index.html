@@ -637,12 +637,27 @@
         console.log('Looking for episode_date:', episodeDate);
         
         // Find matching row by Episode_Date (column 0)
+        // Google Sheets returns dates as: Date(2025,10,16) where month is 0-indexed
         const matchingRow = rows.find(row => {
           const dateValue = row.c[0]?.v || '';
           const dateFormatted = row.c[0]?.f || '';
-          console.log('Checking row with date v:', dateValue, 'f:', dateFormatted, 'against', episodeDate);
-          // Try matching both the value and formatted version
-          return dateValue === episodeDate || dateFormatted === episodeDate;
+          
+          // Parse the Date(YYYY,M,D) format from Google Sheets
+          let parsedDate = '';
+          if (typeof dateValue === 'string' && dateValue.startsWith('Date(')) {
+            const match = dateValue.match(/Date\((\d+),(\d+),(\d+)\)/);
+            if (match) {
+              const year = match[1];
+              const month = String(parseInt(match[2]) + 1).padStart(2, '0'); // Convert 0-indexed to 1-indexed
+              const day = String(match[3]).padStart(2, '0');
+              parsedDate = `${year}-${month}-${day}`;
+            }
+          }
+          
+          console.log('Checking row with dateValue:', dateValue, '→ parsed:', parsedDate, 'against:', episodeDate);
+          
+          // Try matching the parsed date, formatted date, or raw value
+          return parsedDate === episodeDate || dateFormatted === episodeDate || dateValue === episodeDate;
         });
         
         if (!matchingRow) {
