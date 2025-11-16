@@ -616,18 +616,27 @@
         const jsonText = text.substring(47).slice(0, -2);
         const data = JSON.parse(jsonText);
         
+        console.log('Full data from Google Sheets:', data);
+        
         // Extract rows
         const rows = data.table.rows;
+        console.log('Total rows:', rows.length);
         
         // Find matching row by Episode_Date (column 0)
         const matchingRow = rows.find(row => {
           const dateValue = row.c[0]?.v || '';
+          console.log('Checking row with date:', dateValue, 'against', episodeDate);
           return dateValue === episodeDate;
         });
         
         if (!matchingRow) {
           throw new Error(`No script found for episode date: ${episodeDate}`);
         }
+        
+        console.log('Matching row:', matchingRow);
+        console.log('Script column (c[3]):', matchingRow.c[3]);
+        console.log('Script value:', matchingRow.c[3]?.v);
+        console.log('Script length:', matchingRow.c[3]?.v?.length);
         
         // Extract values from the matching row
         // Column order: Episode_Date, Team_Name, Episode_Title, Full_Script, Created_Timestamp, Status
