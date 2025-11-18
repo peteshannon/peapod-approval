@@ -1,6 +1,6 @@
 # PeaPod Script Approval System
 
-A custom approval interface for the Baringa PeaPod podcast automation system.
+A custom approval interface for Pete Shannon's PeaPod podcast automation system.
 
 ## Overview
 
@@ -11,7 +11,7 @@ This form allows team leads to review, edit, and approve AI-generated podcast sc
 - 📝 **Script Review**: View complete podcast scripts with episode details
 - ✏️ **Inline Editing**: Edit scripts directly in the browser before approval
 - 🔄 **Real-time Sync**: Fetches scripts from Google Sheets via public API
-- 🎨 **Branded Interface**: Custom Baringa-themed design
+- 🎨 **Branded Interface**: Currently a custom Baringa-themed design
 - ⚡ **Webhook Integration**: Sends approval data directly to Zapier
 
 ## How It Works
@@ -102,12 +102,12 @@ When approved/rejected, the form sends this JSON via GET query parameters:
 ## Support
 
 For issues or questions:
-- **Project Owner**: Pete Shannon (pete.shannon@baringa.com)
-- **Documentation**: See project knowledge base in main Baringa automation project
+- **Project Owner**: Pete Shannon (peteshannon@hotmail.com)
+- **Documentation**: See project knowledge base in main automation project
 
 ## License
 
-Internal use only - Baringa Partners Ltd.
+Pete Shannon.
 
 ---
 
